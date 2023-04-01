@@ -35,17 +35,17 @@ function initializeSliders() {
   redSlider.oninput = function () {
     document.getElementById("redValue").innerText = `R: ${this.value}`;
     redValue = this.value;
-    sketchArea.style.setProperty("box-shadow", `0px 0px 5px 5px rgb(${redValue}, ${greenValue}, ${blueValue})`)
+    sketchArea.style.setProperty("box-shadow", `0px 0px 7px 7px rgb(${redValue}, ${greenValue}, ${blueValue})`)
   };
   greenSlider.oninput = function () {
     document.getElementById("greenValue").innerText = `G: ${this.value}`;
     greenValue = this.value;
-    sketchArea.style.setProperty("box-shadow", `0px 0px 5px 5px rgb(${redValue}, ${greenValue}, ${blueValue})`)
+    sketchArea.style.setProperty("box-shadow", `0px 0px 7px 7px rgb(${redValue}, ${greenValue}, ${blueValue})`)
   };
   blueSlider.oninput = function () {
     document.getElementById("blueValue").innerText = `B: ${this.value}`;
     blueValue = this.value;
-    sketchArea.style.setProperty("box-shadow", `0px 0px 5px 5px rgb(${redValue}, ${greenValue}, ${blueValue})`)
+    sketchArea.style.setProperty("box-shadow", `0px 0px 7px 7px rgb(${redValue}, ${greenValue}, ${blueValue})`)
   };
 }
 
