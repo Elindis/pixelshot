@@ -1,3 +1,6 @@
+// Global variables
+let currentGridSize = 16;
+
 // Adds a global event listener that tracks mouse state
 let mouseDown = false;
 listenForMouseState();
@@ -8,7 +11,9 @@ sketchArea.addEventListener('mouseover', onHover);
 sketchArea.addEventListener('mousedown', onClick);
 
 // Create and assign functions to buttons
+document.getElementById("newButton").onclick = newSketchArea;
 document.getElementById("clearButton").onclick = resetPixels;
+// document.getElementById("clearButton").onclick = resetPixels;
 
 // Initialize grid
 createSketchGrid(16);
@@ -52,8 +57,20 @@ function removeSketchGrid() {
   document.querySelectorAll('.row').forEach(e => e.remove());
 }
 
+function newSketchArea() {
+  let gridSize = prompt("Enter resolution (1-128): ",`${currentGridSize}`);
+  if (gridSize === null) return;
+  gridSize = parseInt(gridSize);
+  if (typeof(gridSize) !== "number") return;
+  if (gridSize > 128) gridSize = 128;
+  if (gridSize < 1) gridSize = 1;
+  removeSketchGrid();
+  createSketchGrid(gridSize);
+  currentGridSize = gridSize;
+}
+
 function resetPixels() {
-  let confirmation = prompt("Are you sure? (y/n");
+  let confirmation = prompt("Are you sure? (y/n)");
   if (confirmation[0].toLowerCase() !== "y") return;
   document.querySelectorAll('.sketchPixel').forEach(e => e.style.setProperty(
     'background-color', 'rgb(232, 232, 232)'

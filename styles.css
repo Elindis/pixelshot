@@ -12,6 +12,10 @@ body {
   justify-content: center;
 }
 
+button {
+  padding: 1rem 2rem;
+}
+
 .appHeader {
   align-items: center;
   justify-content: center;
@@ -52,4 +56,10 @@ body {
   /* width: calc(var(--width) - 1px);
   height: calc(var(--width) - 1px);
     border: 0.5px solid rgb(49, 49, 49); */
+}
+
+.buttonContainer {
+  width: var(--sketchAreaSize);
+  display: flex;
+  justify-content: space-between;
 }
