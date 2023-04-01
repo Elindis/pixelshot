@@ -2,23 +2,48 @@
 let currentGridSize = 16;
 let mouseDown = false;
 let eraserState = false;
+let redValue = 0;
+let greenValue = 0;
+let blueValue = 0;
 
-// Adds a global event listener that tracks mouse state
+// Adds a global event listener that tracks whether the left
+// mouse button is being held down
 listenForMouseState();
 
-// The sketch area has a mouseover event
+// Initialize the onHover and onClick events in the sketch area
 const sketchArea = document.getElementById('sketchArea');
 sketchArea.addEventListener('mouseover', onHover);
 sketchArea.addEventListener('mousedown', onClick);
 
-// Create and assign functions to buttons
+// Assign functions to buttons
 document.getElementById("newButton").onclick = newSketchArea;
 document.getElementById("eraserButton").onclick = toggleEraser;
 document.getElementById("clearButton").onclick = resetPixels;
 
-// Initialize grid
+// Grabs the sliders and updates an output with their values
+initializeSliders();
+
+// Initialize a default grid
 createSketchGrid(16);
 
+
+function initializeSliders() {
+  let redSlider = document.getElementById("red");
+  let greenSlider = document.getElementById("green");
+  let blueSlider = document.getElementById("blue");
+  redSlider.oninput = function () {
+    document.getElementById("redValue").innerText = `${this.value}`;
+    redValue = this.value;
+  };
+  greenSlider.oninput = function () {
+    document.getElementById("greenValue").innerText = `${this.value}`;
+    greenValue = this.value;
+  };
+  blueSlider.oninput = function () {
+    document.getElementById("blueValue").innerText = `${this.value}`;
+    blueValue = this.value;
+  };
+}
 
 function listenForMouseState() {
   document.addEventListener('mousedown', (e) => {
@@ -60,14 +85,24 @@ function removeSketchGrid() {
 
 function newSketchArea() {
   let gridSize = prompt("Enter resolution (1-128): ",`${currentGridSize}`);
+
+  // Do nothing if the input is invalid
   if (gridSize === null) return;
   gridSize = parseInt(gridSize);
   if (typeof(gridSize) !== "number") return;
-  if (gridSize > 128) gridSize = 128;
-  if (gridSize < 1) gridSize = 1;
+
+  // Generate a new grid
+  clampInputSize();
   removeSketchGrid();
   createSketchGrid(gridSize);
   currentGridSize = gridSize;
+
+  function clampInputSize() {
+    if (gridSize > 128)
+      gridSize = 128;
+    if (gridSize < 1)
+      gridSize = 1;
+  }
 }
 
 function toggleEraser() {
@@ -90,8 +125,6 @@ function resetPixels() {
   ));
 }
 
-
-
 function onHover(e) {
   // We should only draw if the mouse button is down
   if (!mouseDown) return;
@@ -100,7 +133,7 @@ function onHover(e) {
     e.target.style.backgroundColor = "rgba(232, 232, 232, 1.0)";
     return;
   } else {
-    e.target.style.backgroundColor = "rgba(0, 0, 0, 1.0)";
+    e.target.style.backgroundColor = `rgb(${redValue}, ${greenValue}, ${blueValue})`;
   }
 
 }
@@ -111,7 +144,7 @@ function onClick(e) {
     e.target.style.backgroundColor = "rgba(232, 232, 232, 1.0)";
     return;
   } else {
-    e.target.style.backgroundColor = "rgba(0, 0, 0, 1.0)";
+    e.target.style.backgroundColor = `rgb(${redValue}, ${greenValue}, ${blueValue})`;
   }
 }
 

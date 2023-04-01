@@ -1,6 +1,6 @@
 :root {
   /* --sketchAreaSize: 576px; */
-  --sketchAreaSize: 576px;
+  --sketchAreaSize: 512px;
   --gridSize: 16;
 }
 
@@ -10,6 +10,13 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+p {
+  color: white;
+  gap: 0;
+  margin: 2px;
+  width: 16px;
 }
 
 button {
@@ -63,4 +70,42 @@ button {
   width: var(--sketchAreaSize);
   display: flex;
   justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.sliderContainer {
+  display: flex;
+  gap: 1rem;
+  align-self: start;
+}
+
+.colorSliders {
+  display: flex;
+  flex-direction: column;
+}
+
+.slider {
+  margin: 7px 0px;
+  height: 8px;
+  background: #d3d3d3; /* Grey background */
+  opacity: 0.5; /* Set transparency (for mouse-over effects on hover) */
+  -webkit-transition: .2s; /* 0.2 seconds transition on hover */
+  transition: opacity .2s;
+}
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Override default look */
+  appearance: none;
+  width: 16px; /* Set a specific slider handle width */
+  height: 16px; /* Slider handle height */
+  background: #04AA6D; /* Green background */
+  cursor: pointer; /* Cursor on hover */
+}
+.slider:hover {
+  opacity: 1; /* Fully shown on mouse-over */
+}
+.slider::-moz-range-thumb {
+  width: 16px; /* Set a specific slider handle width */
+  height: 16px; /* Slider handle height */
+  background: #ffffff; /* Green background */
+  cursor: grab; /* Cursor on hover */
 }

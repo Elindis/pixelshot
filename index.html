@@ -9,7 +9,9 @@
   <title>Document</title>
 </head>
 <body>
+
   <div class="container">
+
     <div class="appHeader">Elindis Pixel Art</div>
     <div id="sketchArea">
 
@@ -18,6 +20,25 @@
       <button id="newButton">New</button>
       <button id="eraserButton">Eraser</button>
       <button id="clearButton">Clear</button>
+    </div>
+
+    <div class="sliderContainer">
+
+
+
+      <div class="colorSliders">
+        <input type="range" autocomplete="off" min="0" max="255" value="0" class="slider" id="red">
+        <input type="range" autocomplete="off" min="0" max="255" value="0" class="slider" id="green">
+        <input type="range" autocomplete="off" min="0" max="255" value="0" class="slider" id="blue">
+      </div>
+
+      <div class="colorPreview">
+        <p id="redValue">0</p>
+        <p id="greenValue">0</p>
+        <p id="blueValue">0</p>
+      </div>
+
+
     </div>
 
 
