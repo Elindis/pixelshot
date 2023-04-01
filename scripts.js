@@ -49,12 +49,10 @@ function initializeSliders() {
 function listenForMouseState() {
   document.addEventListener('mousedown', (e) => {
     mouseDown = true;
-    console.log(mouseDown);
   });
 
   document.addEventListener('mouseup', (e) => {
     mouseDown = false;
-    console.log(mouseDown);
   });
 }
 
@@ -152,8 +150,6 @@ function onClick(e) {
 }
 
 function exportImage() {
-
-
   const link = document.createElement("a");
   const file = new Blob([composeImage()], { type: 'text/plain' })
   link.href = URL.createObjectURL(file);
@@ -164,6 +160,7 @@ function exportImage() {
 
 function composeImage() {
   let imageData = [];
+  // Write the file header
   imageData.push("P3");
   imageData.push(`${currentGridSize}x${currentGridSize}`);
   imageData.push("255");
@@ -181,13 +178,5 @@ function composeImage() {
   imageData = imageData.replaceAll(")", "");
   imageData = imageData.replaceAll(" ", "\r\n");
   imageData = imageData.replaceAll("x", " ");
-  console.log(typeof(imageData));
   return imageData;
 }
-
-function getRGB(e) {
-  let pixelData = e.style.backgroundColor;
-
-}
-
-
