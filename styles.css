@@ -54,6 +54,11 @@ button {
   margin-bottom: 2rem;
 }
 
+.row {
+  display: flex;
+  flex-direction: row;
+}
+
 .sketchPixel {
   --width: calc(var(--sketchAreaSize) / var(--gridSize));
   --height: calc(var(--sketchAreaSize) / var(--gridSize));

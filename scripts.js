@@ -19,6 +19,7 @@ sketchArea.addEventListener('mousedown', onClick);
 document.getElementById("newButton").onclick = newSketchArea;
 document.getElementById("eraserButton").onclick = toggleEraser;
 document.getElementById("clearButton").onclick = resetPixels;
+document.getElementById("saveButton").onclick = exportImage;
 
 // Grabs the sliders and updates an output with their values
 initializeSliders();
@@ -73,9 +74,11 @@ function createSketchGrid(gridSize) {
       pixel = document.createElement("DIV");
       row.appendChild(pixel);
       pixel.className = "sketchPixel";
-      // sketchArea.innerHTML += '<div class="sketchPixel"></div>'
     }
   }
+  document.querySelectorAll('.sketchPixel').forEach(e => e.style.setProperty(
+    'background-color', 'rgb(232, 232, 232)'
+  ));
 }
 
 function removeSketchGrid() {
@@ -148,11 +151,43 @@ function onClick(e) {
   }
 }
 
+function exportImage() {
 
-// no longer needed
-// function removeGridLines() {
-//   document.querySelectorAll(".sketchPixel").forEach(e => e.style.setProperty(
-//     'border-color', 'rgb(232, 232, 232)'
-//   ));
-// }
+
+  const link = document.createElement("a");
+  const file = new Blob([composeImage()], { type: 'text/plain' })
+  link.href = URL.createObjectURL(file);
+  link.download = "pixel_art.ppm"
+  link.click();
+  URL.revokeObjectURL(link.href);
+}
+
+function composeImage() {
+  let imageData = [];
+  imageData.push("P3");
+  imageData.push(`${currentGridSize}x${currentGridSize}`);
+  imageData.push("255");
+  document.querySelectorAll('.sketchPixel').forEach(e =>
+    imageData.push(e.style.backgroundColor)
+  );
+
+  // Convert rgb(x,y,z) to x\n y\n z\n
+  imageData = imageData.join("\r\n");
+  imageData = imageData.replaceAll(",", "");
+  imageData = imageData.replaceAll("r", "");
+  imageData = imageData.replaceAll("g", "");
+  imageData = imageData.replaceAll("b", "");
+  imageData = imageData.replaceAll("(", "");
+  imageData = imageData.replaceAll(")", "");
+  imageData = imageData.replaceAll(" ", "\r\n");
+  imageData = imageData.replaceAll("x", " ");
+  console.log(typeof(imageData));
+  return imageData;
+}
+
+function getRGB(e) {
+  let pixelData = e.style.backgroundColor;
+
+}
+
 
