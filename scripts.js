@@ -1,10 +1,30 @@
-// The sketch area has the event listener
-const sketchArea = document.getElementById('sketchArea');
-sketchArea.addEventListener('click', onClick);
+// Adds a global event listener that tracks mouse state
+let mouseDown = false;
+listenForMouseState();
 
-// Initial grid
+// The sketch area has a mouseover event
+const sketchArea = document.getElementById('sketchArea');
+sketchArea.addEventListener('mouseover', onHover);
+sketchArea.addEventListener('mousedown', onClick);
+
+// Create and assign functions to buttons
+document.getElementById("clearButton").onclick = resetPixels;
+
+// Initialize grid
 createSketchGrid(16);
 
+
+function listenForMouseState() {
+  document.addEventListener('mousedown', (e) => {
+    mouseDown = true;
+    console.log(mouseDown);
+  });
+
+  document.addEventListener('mouseup', (e) => {
+    mouseDown = false;
+    console.log(mouseDown);
+  });
+}
 
 function createSketchGrid(gridSize) {
   // First, we have to set the size of the pixels by
@@ -27,26 +47,36 @@ function createSketchGrid(gridSize) {
   }
 }
 
-function removePixels() {
+function removeSketchGrid() {
   document.querySelectorAll('.sketchPixel').forEach(e => e.remove());
   document.querySelectorAll('.row').forEach(e => e.remove());
 }
 
 function resetPixels() {
+  let confirmation = prompt("Are you sure? (y/n");
+  if (confirmation[0].toLowerCase() !== "y") return;
   document.querySelectorAll('.sketchPixel').forEach(e => e.style.setProperty(
     'background-color', 'rgb(232, 232, 232)'
   ));
 }
 
-function onClick(e){
-  console.log(e.target.className);
+function onHover(e){
+  // We should only draw if the mouse button is down
+  if (!mouseDown) return;
   if (e.target.className !== "sketchPixel") return;
-  e.target.style.backgroundColor = "black";
+  e.target.style.backgroundColor = "rgba(0, 0, 0, 1.0)";
 }
 
-function removeGridLines() {
-  document.querySelectorAll(".sketchPixel").forEach(e => e.style.setProperty(
-    'border-color', 'rgb(232, 232, 232)'
-  ));
+function onClick(e){
+  if (e.target.className !== "sketchPixel") return;
+  e.target.style.backgroundColor = "rgba(0, 0, 0, 1.0)";
 }
+
+
+// no longer needed
+// function removeGridLines() {
+//   document.querySelectorAll(".sketchPixel").forEach(e => e.style.setProperty(
+//     'border-color', 'rgb(232, 232, 232)'
+//   ));
+// }
 
