@@ -1,8 +1,9 @@
 // Global variables
 let currentGridSize = 16;
+let mouseDown = false;
+let eraserState = false;
 
 // Adds a global event listener that tracks mouse state
-let mouseDown = false;
 listenForMouseState();
 
 // The sketch area has a mouseover event
@@ -12,8 +13,8 @@ sketchArea.addEventListener('mousedown', onClick);
 
 // Create and assign functions to buttons
 document.getElementById("newButton").onclick = newSketchArea;
+document.getElementById("eraserButton").onclick = toggleEraser;
 document.getElementById("clearButton").onclick = resetPixels;
-// document.getElementById("clearButton").onclick = resetPixels;
 
 // Initialize grid
 createSketchGrid(16);
@@ -69,6 +70,18 @@ function newSketchArea() {
   currentGridSize = gridSize;
 }
 
+function toggleEraser() {
+  eraserState = !eraserState;
+  const eraserStyle = document.querySelector("#eraserButton").style;
+  if (eraserState) {
+    eraserStyle.setProperty("color", "rgb(232, 232, 232)")
+    eraserStyle.setProperty("background-color", "rgb(8, 8, 8)")
+  } else {
+    eraserStyle.setProperty("color", "rgb(8, 8, 8)")
+    eraserStyle.setProperty("background-color", "rgb(232, 232, 232)")
+  }
+}
+
 function resetPixels() {
   let confirmation = prompt("Are you sure? (y/n)");
   if (confirmation[0].toLowerCase() !== "y") return;
@@ -77,16 +90,29 @@ function resetPixels() {
   ));
 }
 
-function onHover(e){
+
+
+function onHover(e) {
   // We should only draw if the mouse button is down
   if (!mouseDown) return;
   if (e.target.className !== "sketchPixel") return;
-  e.target.style.backgroundColor = "rgba(0, 0, 0, 1.0)";
+  if (eraserState) {
+    e.target.style.backgroundColor = "rgba(232, 232, 232, 1.0)";
+    return;
+  } else {
+    e.target.style.backgroundColor = "rgba(0, 0, 0, 1.0)";
+  }
+
 }
 
-function onClick(e){
+function onClick(e) {
   if (e.target.className !== "sketchPixel") return;
-  e.target.style.backgroundColor = "rgba(0, 0, 0, 1.0)";
+  if (eraserState) {
+    e.target.style.backgroundColor = "rgba(232, 232, 232, 1.0)";
+    return;
+  } else {
+    e.target.style.backgroundColor = "rgba(0, 0, 0, 1.0)";
+  }
 }
 
 
