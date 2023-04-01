@@ -33,16 +33,19 @@ function initializeSliders() {
   let greenSlider = document.getElementById("green");
   let blueSlider = document.getElementById("blue");
   redSlider.oninput = function () {
-    document.getElementById("redValue").innerText = `${this.value}`;
+    document.getElementById("redValue").innerText = `R: ${this.value}`;
     redValue = this.value;
+    sketchArea.style.setProperty("box-shadow", `0px 0px 5px 5px rgb(${redValue}, ${greenValue}, ${blueValue})`)
   };
   greenSlider.oninput = function () {
-    document.getElementById("greenValue").innerText = `${this.value}`;
+    document.getElementById("greenValue").innerText = `G: ${this.value}`;
     greenValue = this.value;
+    sketchArea.style.setProperty("box-shadow", `0px 0px 5px 5px rgb(${redValue}, ${greenValue}, ${blueValue})`)
   };
   blueSlider.oninput = function () {
-    document.getElementById("blueValue").innerText = `${this.value}`;
+    document.getElementById("blueValue").innerText = `B: ${this.value}`;
     blueValue = this.value;
+    sketchArea.style.setProperty("box-shadow", `0px 0px 5px 5px rgb(${redValue}, ${greenValue}, ${blueValue})`)
   };
 }
 
@@ -113,14 +116,13 @@ function toggleEraser() {
     eraserStyle.setProperty("color", "rgb(232, 232, 232)")
     eraserStyle.setProperty("background-color", "rgb(8, 8, 8)")
   } else {
-    eraserStyle.setProperty("color", "rgb(8, 8, 8)")
-    eraserStyle.setProperty("background-color", "rgb(232, 232, 232)")
+    eraserStyle.setProperty("color", "yellow")
+    eraserStyle.setProperty("background-color", "rgb(82, 72, 124)")
   }
 }
 
 function resetPixels() {
-  let confirmation = prompt("Are you sure? (y/n)");
-  if (confirmation[0].toLowerCase() !== "y") return;
+  if (!confirm("Are you sure?")) return;
   document.querySelectorAll('.sketchPixel').forEach(e => e.style.setProperty(
     'background-color', 'rgb(232, 232, 232)'
   ));
